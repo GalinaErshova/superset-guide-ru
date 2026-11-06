@@ -14,6 +14,19 @@ ORIGIN = 'https://superset.galaershova.ru'
 REPO = 'https://github.com/GalinaErshova/superset-guide-ru'
 CHECKED = '2026-11-06'
 STATUS = {'stable': 'Стабильно', 'preview': 'Превью', 'experiment': 'Эксперимент'}
+METRIKA_SCRIPT = '''<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=114109969', 'ym');
+
+    ym(114109969, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->'''
+METRIKA_NOSCRIPT = '<noscript><div><img src="https://mc.yandex.ru/watch/114109969" style="position:absolute; left:-9999px;" alt="" /></div></noscript>'
 entries = json.loads((ROOT / 'content/catalog.json').read_text(encoding='utf-8'))
 updates = json.loads((ROOT / 'content/updates.json').read_text(encoding='utf-8'))
 updates.sort(key=lambda item: item['date'], reverse=True)
@@ -81,8 +94,8 @@ def shell(title, desc, body, active='', path='/', toc='', article=None):
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)} · Superset по-русски</title><meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{ORIGIN}{path}"><meta property="og:title" content="{e(title)} · Superset по-русски"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="{ORIGIN}{path}">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
-<body><a class="skip" href="#main">К содержанию</a>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script>{METRIKA_SCRIPT}</head>
+<body>{METRIKA_NOSCRIPT}<a class="skip" href="#main">К содержанию</a>
 <header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
 <div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form>{nav(active)}<p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
 <div class="workspace"><main id="main" tabindex="-1">{body}</main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="{edit}">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
