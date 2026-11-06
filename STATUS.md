@@ -41,8 +41,8 @@
 - Уникальные title/description и canonical дополнены robots, автором, Open Graph, Twitter Card и JSON-LD WebSite/WebPage/Article/BreadcrumbList. Статьи используют редакционные даты.
 - Поиск и 404: noindex, follow; sitemap содержит только 28 индексируемых адресов. Страниц по-прежнему 30.
 - Сборка, проверки метаданных всех страниц, JSON-LD, sitemap, ссылок и регрессионные проверки дат — PASS. Проверки Google Rich Results и Search Console не выполнялись.
-- SEO-исходники: 18f9d2d, публикация gh-pages: 1c1391f. GitHub Pages run 42237450334 выполняется; на проверке публичная статья ещё без новой JSON-LD. Ревью nordik-claude запрошено отдельно.
+- SEO-исходники: 18f9d2d, публикация gh-pages: 1c1391f. GitHub Pages run 42237450334 завершился успешно. На публичной статье /guide/performance/ подтверждены JSON-LD и Метрика 114109969. CNAME корректен. Сертификат по повторной проверке ещё отсутствует; GitHub вновь отклонил https_enforced с «The certificate does not exist yet». Ревью nordik-claude запрошено отдельно.
 
 ## Следующий шаг
 
-Проверить публикацию SEO-обновления и сертификат; включить HTTPS после выпуска. Проверить ответ nordik-claude. Стенд Superset подключать отдельной задачей после получения адреса и версии.
+Проверить сертификат и включить HTTPS после выпуска. Проверить ответ nordik-claude. Стенд Superset подключать отдельной задачей после получения адреса и версии.
