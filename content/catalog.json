@@ -1,24 +1,176 @@
 [
- {"file":"learn/01-start.md","slug":"start","group":"Первые шаги","description":"Что открыть после входа и как устроены датасеты, графики и дашборды.","minutes":7},
- {"file":"learn/02-data.md","slug":"data","group":"Первые шаги","description":"Учебные продажи: получить датасет и проверить типы полей.","minutes":10},
- {"file":"learn/03-first-chart.md","slug":"first-chart","group":"Первые шаги","description":"Построить первый график и сверить число с исходными данными.","minutes":10},
- {"file":"learn/04-dashboard.md","slug":"dashboard","group":"Первые шаги","description":"Собрать понятный экран из нескольких графиков.","minutes":12},
- {"file":"learn/05-filters.md","slug":"filters","group":"Первые шаги","description":"Настроить период, регион и область действия фильтра.","minutes":10},
- {"file":"learn/06-sql-lab.md","slug":"sql-lab","group":"Данные и расчёты","description":"Проверить данные SQL-запросом и сохранить виртуальный датасет.","minutes":12},
- {"file":"learn/07-metrics.md","slug":"metrics","group":"Данные и расчёты","description":"Сохранить определения выручки, прибыли и маржинальности.","minutes":10},
- {"file":"learn/08-publish.md","slug":"publish","group":"Дашборды","description":"Проверить права, цифры и фильтры перед передачей заказчику.","minutes":8},
- {"file":"reference/charts.md","slug":"charts","group":"Дашборды","description":"Выбрать визуализацию под вопрос и избежать искажений.","minutes":6},
- {"file":"reference/time.md","slug":"time","group":"Данные и расчёты","description":"Границы периода, часовые пояса и неполные месяцы.","minutes":6},
- {"file":"reference/design.md","slug":"design","group":"Дашборды","description":"Композиция, подписи, цвет и полезная плотность информации.","minutes":6},
- {"file":"reference/themes.md","slug":"themes","group":"Оформление","description":"Темы Superset 6.x и единые правила оформления графиков.","minutes":7,"version":"6.0+"},
- {"file":"reference/performance.md","slug":"performance","group":"Дашборды","description":"Найти причину медленного графика: SQL, объём, фильтры или кэш.","minutes":7},
- {"file":"reference/troubleshooting.md","slug":"troubleshooting","group":"Справка","description":"Пустой график, неверный итог, нет доступа: с чего начать проверку.","minutes":6},
- {"file":"reference/glossary.md","slug":"glossary","group":"Справка","description":"Английские названия элементов интерфейса с русскими пояснениями.","minutes":5},
- {"file":"experiments/mcp.md","slug":"mcp","group":"Эксперименты","description":"Учебный сценарий работы AI-клиента с данными через официальный MCP-сервер.","minutes":8,"status":"experiment","version":"Сборка с MCP"},
- {"file":"experiments/assistant.md","slug":"ai-assistant","group":"Эксперименты","description":"Что предлагает PR встроенного AI-ассистента и как оценивать такие решения.","minutes":6,"status":"experiment","version":"PR #42805"},
- {"file":"experiments/nl-explorer.md","slug":"nl-explorer","group":"Эксперименты","description":"Сторонний интерфейс Ask Data: границы пилота и критерии качества.","minutes":6,"status":"experiment","version":"Стороннее расширение"},
- {"file":"experiments/css.md","slug":"css","group":"Эксперименты","description":"Точечные CSS-изменения на копии дашборда и проверка после обновления.","minutes":7,"status":"experiment","version":"Зависит от DOM"},
- {"file":"reference/releases.md","slug":"releases","group":"Обновления","description":"Стабильная версия, кандидаты в релиз и проверка своих дашбордов после обновления.","minutes":5,"status":"preview","version":"6.1.0 / 7.0.0rc2"},
- {"file":"reference/sources.md","slug":"sources","group":"Справка","description":"Официальные документы, русскоязычные аналоги и дополнительные материалы.","minutes":5},
- {"file":"reference/editorial.md","slug":"editorial","group":"Справка","description":"Как читать статусы, проверять актуальность и предлагать дополнения.","minutes":4}
+  {
+    "file": "learn/01-start.md",
+    "slug": "start",
+    "group": "Первые шаги",
+    "description": "Что открыть после входа и как устроены датасеты, графики и дашборды.",
+    "minutes": 7
+  },
+  {
+    "file": "learn/02-data.md",
+    "slug": "data",
+    "group": "Первые шаги",
+    "description": "Учебные продажи: получить датасет и проверить типы полей.",
+    "minutes": 10
+  },
+  {
+    "file": "learn/03-first-chart.md",
+    "slug": "first-chart",
+    "group": "Первые шаги",
+    "description": "Построить первый график и сверить число с исходными данными.",
+    "minutes": 10
+  },
+  {
+    "file": "learn/04-dashboard.md",
+    "slug": "dashboard",
+    "group": "Первые шаги",
+    "description": "Собрать понятный экран из нескольких графиков.",
+    "minutes": 12
+  },
+  {
+    "file": "learn/05-filters.md",
+    "slug": "filters",
+    "group": "Первые шаги",
+    "description": "Настроить период, регион и область действия фильтра.",
+    "minutes": 10
+  },
+  {
+    "file": "learn/06-sql-lab.md",
+    "slug": "sql-lab",
+    "group": "Данные и расчёты",
+    "description": "Проверить данные SQL-запросом и сохранить виртуальный датасет.",
+    "minutes": 12
+  },
+  {
+    "file": "learn/07-metrics.md",
+    "slug": "metrics",
+    "group": "Данные и расчёты",
+    "description": "Сохранить определения выручки, прибыли и маржинальности.",
+    "minutes": 10
+  },
+  {
+    "file": "learn/08-publish.md",
+    "slug": "publish",
+    "group": "Дашборды",
+    "description": "Проверить права, цифры и фильтры перед передачей заказчику.",
+    "minutes": 8
+  },
+  {
+    "file": "reference/charts.md",
+    "slug": "charts",
+    "group": "Дашборды",
+    "description": "Выбрать визуализацию под вопрос и избежать искажений.",
+    "minutes": 6
+  },
+  {
+    "file": "reference/time.md",
+    "slug": "time",
+    "group": "Данные и расчёты",
+    "description": "Границы периода, часовые пояса и неполные месяцы.",
+    "minutes": 6
+  },
+  {
+    "file": "reference/design.md",
+    "slug": "design",
+    "group": "Дашборды",
+    "description": "Композиция, подписи, цвет и полезная плотность информации.",
+    "minutes": 6
+  },
+  {
+    "file": "reference/themes.md",
+    "slug": "themes",
+    "group": "Оформление",
+    "description": "Темы Superset 6.x и единые правила оформления графиков.",
+    "minutes": 7,
+    "version": "6.0+"
+  },
+  {
+    "file": "reference/performance.md",
+    "slug": "performance",
+    "group": "Дашборды",
+    "description": "Найти причину медленного графика: SQL, объём, фильтры или кэш.",
+    "minutes": 7
+  },
+  {
+    "file": "reference/troubleshooting.md",
+    "slug": "troubleshooting",
+    "group": "Справка",
+    "description": "Пустой график, неверный итог, нет доступа: с чего начать проверку.",
+    "minutes": 6
+  },
+  {
+    "file": "reference/glossary.md",
+    "slug": "glossary",
+    "group": "Справка",
+    "description": "Английские названия элементов интерфейса с русскими пояснениями.",
+    "minutes": 5
+  },
+  {
+    "file": "experiments/mcp.md",
+    "slug": "mcp",
+    "group": "Эксперименты",
+    "description": "Учебный сценарий работы AI-клиента с данными через официальный MCP-сервер.",
+    "minutes": 8,
+    "status": "experiment",
+    "version": "Сборка с MCP"
+  },
+  {
+    "file": "experiments/assistant.md",
+    "slug": "ai-assistant",
+    "group": "Эксперименты",
+    "description": "Что предлагает PR встроенного AI-ассистента и как оценивать такие решения.",
+    "minutes": 6,
+    "status": "experiment",
+    "version": "PR #42805"
+  },
+  {
+    "file": "experiments/nl-explorer.md",
+    "slug": "nl-explorer",
+    "group": "Эксперименты",
+    "description": "Сторонний интерфейс Ask Data: границы пилота и критерии качества.",
+    "minutes": 6,
+    "status": "experiment",
+    "version": "Стороннее расширение"
+  },
+  {
+    "file": "experiments/css.md",
+    "slug": "css",
+    "group": "Эксперименты",
+    "description": "Точечные CSS-изменения на копии дашборда и проверка после обновления.",
+    "minutes": 7,
+    "status": "experiment",
+    "version": "Зависит от DOM"
+  },
+  {
+    "file": "reference/releases.md",
+    "slug": "releases",
+    "group": "Обновления",
+    "description": "Стабильная версия, кандидаты в релиз и проверка своих дашбордов после обновления.",
+    "minutes": 5,
+    "status": "preview",
+    "version": "6.1.0 / 7.0.0rc2"
+  },
+  {
+    "file": "reference/sources.md",
+    "slug": "sources",
+    "group": "Справка",
+    "description": "Официальные документы, русскоязычные аналоги и дополнительные материалы.",
+    "minutes": 5
+  },
+  {
+    "file": "reference/editorial.md",
+    "slug": "editorial",
+    "group": "Справка",
+    "description": "Как читать статусы, проверять актуальность и предлагать дополнения.",
+    "minutes": 4
+  },
+  {
+    "file": "experiments/codex.md",
+    "slug": "codex",
+    "group": "AI и MCP",
+    "description": "Подключить Codex к тестовому стенду для работы с SQL, темами и графиками.",
+    "minutes": 8,
+    "status": "experiment",
+    "version": "Зависит от подключения"
+  }
 ]

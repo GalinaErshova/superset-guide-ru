@@ -42,7 +42,7 @@ for file,page in pages.items():
             errors.append(f'{file.relative_to(OUT)}: missing anchor {url}')
 catalog=json.loads((ROOT/'content/catalog.json').read_text(encoding='utf-8'))
 assert len({x['slug'] for x in catalog})==len(catalog)
-assert len(catalog)==22
+assert len(catalog)==23
 for item in catalog:
     assert item.get('status','stable') in ('stable','preview','experiment')
     for key in ('published','updated','checked'):
@@ -63,4 +63,4 @@ assert dict(monthly)=={'2026-01':44000,'2026-02':51000,'2026-03':61000}
 assert dict(regions)=={'North':73000,'South':83000}
 ET.parse(OUT/'sitemap.xml');ET.parse(OUT/'feed.xml')
 assert not errors, '\n'.join(errors)
-print(f'PASS: {len(pages)} pages; all internal links/anchors; 22 articles; search index; CSV totals, months and regions; sitemap and feed.')
+print(f'PASS: {len(pages)} pages; all internal links/anchors; 23 articles; search index; CSV totals, months and regions; sitemap and feed.')
