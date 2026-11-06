@@ -16,7 +16,16 @@ CHECKED = '2026-11-06'
 STATUS = {'stable': 'Стабильно', 'preview': 'Превью', 'experiment': 'Эксперимент'}
 entries = json.loads((ROOT / 'content/catalog.json').read_text(encoding='utf-8'))
 updates = json.loads((ROOT / 'content/updates.json').read_text(encoding='utf-8'))
+updates.sort(key=lambda item: item['date'], reverse=True)
+releases = json.loads((ROOT / 'content/releases.json').read_text(encoding='utf-8'))
 e = html.escape
+
+def display_date(value):
+    return date.fromisoformat(value).strftime('%d.%m.%Y')
+
+stable_release = next(x for x in releases['items'] if x['status']=='stable')
+preview_release = next(x for x in releases['items'] if x['status']=='preview')
+release_table = '| Статус | Версия | Публикация на GitHub | Что делать аналитику |\n| --- | --- | --- | --- |\n' + '\n'.join(f'| {STATUS[x["status"]]} | [{x["version"]}]({x["url"]}) | {display_date(x["published"])} | {x["note"]} |' for x in releases['items'])
 
 def write(path, text):
     target = OUT / path
@@ -36,6 +45,10 @@ for item in entries:
     item.setdefault('published', CHECKED)
     item.setdefault('updated', CHECKED)
     item.setdefault('checked', CHECKED)
+    if item['slug']=='releases':
+        item['version'] = f'{stable_release["version"]} / {preview_release["version"]}'
+        item['checked'] = releases['checked']
+        item['updated'] = max(item['updated'], releases['checked'])
     raw = (ROOT / 'content' / item['file']).read_text(encoding='utf-8')
     item['title'] = raw.splitlines()[0].removeprefix('# ').strip()
     item['raw'] = raw
@@ -44,8 +57,10 @@ for item in entries:
 by_file = {Path(x['file']).name: x['url'] for x in entries}
 for item in entries:
     body = item['raw'].split('\n', 1)[1]
+    body = body.replace('{{release_checked}}', display_date(releases['checked'])).replace('{{release_status}}',release_table).replace('{{release_summary}}',f'Latest на GitHub указывает на {stable_release["version"]}, а {preview_release["version"]} помечен Pre-release.')
     for name, url in by_file.items():
         body = body.replace(f']({name})', f']({url})')
+    item['raw'] = '# ' + item['title'] + '\n' + body
     # Editors provide trusted Markdown; visitors never supply markup.
     md = markdown.Markdown(extensions=['tables', 'fenced_code', 'toc', 'sane_lists'], extension_configs={'toc': {'permalink': False}})
     item['body'] = md.convert(body)
@@ -123,14 +138,20 @@ topics += '<div class="topic-jumps">' + ''.join(f'<a href="#{slug}">{title}</a>'
 for slug,title,intro,slugs in topic_groups:
     topics += f'<section class="home-section" id="{slug}"><div class="section-heading"><h2>{title}</h2><p>{intro}</p></div>' + ''.join(row(next(x for x in entries if x['slug']==s)) for s in slugs) + '</section>'
 write('topics/index.html',shell('Тематический справочник','Темы Superset, CSS, оформление дашбордов, AI, MCP и подключение Codex.',topics,'topics','/topics/'))
-journal = heading('Журнал изменений','Что нового','Обновления справочника отдельно от дат выпуска Apache Superset.') + '<div class="release-summary"><div><span class="badge stable">Стабильно</span><strong>6.1.0</strong><span>13 мая 2026</span></div><div><span class="badge preview">Превью</span><strong>7.0.0rc2</strong><span>16 октября 2026</span></div><p>Сверено 6 ноября 2026.<br><a href="/guide/releases/">Источники и разбор релизов →</a></p></div>' + ''.join(f'<section class="journal-entry"><time datetime="{u["date"]}">{u["date"]}</time><div><span class="row-meta">{u["type"]}</span><h2><a href="/guide/{u["slug"]}/">{u["title"]}</a></h2><p>{u["summary"]}</p></div></section>' for u in updates) + '<p class="muted">Новые записи публикуются после редакционной проверки. <a href="/feed.xml">Подписаться на ленту Atom</a>.</p>'
+release_cards = ''.join(f'<div><span class="badge {x["status"]}">{STATUS[x["status"]]}</span><strong>{e(x["version"])}</strong><span>{display_date(x["published"])}</span></div>' for x in (stable_release, preview_release))
+journal = heading('Журнал изменений','Что нового','Обновления справочника отдельно от дат выпуска Apache Superset.') + f'<div class="release-summary">{release_cards}<p>Сверено {display_date(releases["checked"])}.<br><a href="/guide/releases/">Источники и разбор релизов →</a></p></div>' + ''.join(f'<section class="journal-entry"><time datetime="{u["date"]}">{u["date"]}</time><div><span class="row-meta">{u["type"]}</span><h2><a href="/guide/{u["slug"]}/">{u["title"]}</a></h2><p>{u["summary"]}</p></div></section>' for u in updates) + '<p class="muted">Новые записи публикуются после редакционной проверки. <a href="/feed.xml">Подписаться на ленту Atom</a>.</p>'
 write('updates/index.html',shell('Что нового','Новые материалы и релизы Apache Superset на русском.',journal,'updates','/updates/'))
 search = heading('Поиск','Найти в справочнике','Поиск по заголовкам и полным текстам. Например: «область фильтра», «SQL», «MCP».') + '<form class="large-search" action="/search/"><label for="search-query">Ваш запрос</label><input id="search-query" name="q" type="search" placeholder="Что хотите узнать?" autocomplete="off"><button class="button primary" type="submit">Найти</button></form><p id="search-status" role="status"></p><div id="search-results"></div><noscript>Для поиска включите JavaScript. Все страницы доступны через <a href="/library/">справочник</a>.</noscript>'
 write('search/index.html',shell('Поиск','Полнотекстовый поиск по русскому справочнику Superset.',search,'search','/search/'))
 write('404.html',shell('Страница не найдена','Страница не найдена.',heading('404','Страница не найдена','Проверьте адрес или найдите материал в справочнике.')+'<a class="button primary" href="/library/">Открыть справочник →</a>',path='/404.html'))
 write('search-index.json',json.dumps([{k:x[k] for k in ('title','description','url','status','group','raw')} for x in entries],ensure_ascii=False))
 urls=['/','/library/','/topics/','/experiments/','/updates/','/search/']+[x['url'] for x in entries]
-write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{ORIGIN}{url}</loc><lastmod>{CHECKED}</lastmod></url>' for url in urls)+'</urlset>')
+latest_content_date = max(x['updated'] for x in entries)
+latest_feed_date = max(u['date'] for u in updates)
+page_dates = {x['url']:x['updated'] for x in entries}
+page_dates['/updates/'] = max(latest_feed_date, releases['checked'])
+page_dates['/'] = max(latest_content_date, latest_feed_date)
+write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{ORIGIN}{url}</loc><lastmod>{page_dates.get(url,latest_content_date)}</lastmod></url>' for url in urls)+'</urlset>')
 write('robots.txt',f'User-agent: *\nAllow: /\nSitemap: {ORIGIN}/sitemap.xml\n')
-write('feed.xml','<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Superset по-русски: обновления</title><id>'+ORIGIN+'/</id><link href="'+ORIGIN+'/feed.xml" rel="self"/><link href="'+ORIGIN+'/"/><updated>'+CHECKED+'T12:00:00Z</updated><author><name>Галина Ершова</name></author>'+''.join(f'<entry><title>{e(u["title"])}</title><id>{ORIGIN}/updates/#{u["date"]}-{u["slug"]}</id><link href="{ORIGIN}/guide/{u["slug"]}/"/><updated>{u["date"]}T12:00:00Z</updated><summary>{e(u["summary"])}</summary></entry>' for u in updates)+'</feed>')
+write('feed.xml','<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Superset по-русски: обновления</title><id>'+ORIGIN+'/</id><link href="'+ORIGIN+'/feed.xml" rel="self"/><link href="'+ORIGIN+'/"/><updated>'+latest_feed_date+'T12:00:00Z</updated><author><name>Галина Ершова</name></author>'+''.join(f'<entry><title>{e(u["title"])}</title><id>{ORIGIN}/updates/#{u["date"]}-{u["slug"]}</id><link href="{ORIGIN}/guide/{u["slug"]}/"/><updated>{u["date"]}T12:00:00Z</updated><summary>{e(u["summary"])}</summary></entry>' for u in updates)+'</feed>')
 print(f'Built {len(entries)} articles and {len(urls)} indexed pages in {OUT}')

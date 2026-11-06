@@ -1,0 +1,8 @@
+{
+  "checked": "2026-11-06",
+  "items": [
+    {"version":"6.1.0","status":"stable","published":"2026-05-13","url":"https://github.com/apache/superset/releases/tag/6.1.0","note":"Базовая версия этого справочника; сверить свою установку"},
+    {"version":"7.0.0rc2","status":"preview","published":"2026-10-16","url":"https://github.com/apache/superset/releases/tag/7.0.0rc2","note":"Проверять на отдельном стенде, фиксировать несовместимости"},
+    {"version":"7.0.0rc1","status":"preview","published":"2026-10-13","url":"https://github.com/apache/superset/releases/tag/7.0.0rc1","note":"Предыдущий кандидат; для нового пилота сначала проверить более свежие выпуски"}
+  ]
+}
