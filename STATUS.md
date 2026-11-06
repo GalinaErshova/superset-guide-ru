@@ -41,7 +41,7 @@
 - Уникальные title/description и canonical дополнены robots, автором, Open Graph, Twitter Card и JSON-LD WebSite/WebPage/Article/BreadcrumbList. Статьи используют редакционные даты.
 - Поиск и 404: noindex, follow; sitemap содержит только 28 индексируемых адресов. Страниц по-прежнему 30.
 - Сборка, проверки метаданных всех страниц, JSON-LD, sitemap, ссылок и регрессионные проверки дат — PASS. Проверки Google Rich Results и Search Console не выполнялись.
-- SEO-обновление подготовлено к публикации; точный результат развёртывания нужно проверить после push gh-pages.
+- SEO-исходники: 18f9d2d, публикация gh-pages: 1c1391f. GitHub Pages run 42237450334 выполняется; на проверке публичная статья ещё без новой JSON-LD. Ревью nordik-claude запрошено отдельно.
 
 ## Следующий шаг
 
