@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Точечная кастомизация через CSS · Superset по-русски</title><meta name="description" content="Точечные CSS-изменения на копии дашборда и проверка после обновления.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/css/"><meta property="og:title" content="Точечная кастомизация через CSS · Superset по-русски"><meta property="og:description" content="Точечные CSS-изменения на копии дашборда и проверка после обновления."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/css/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" >Первое знакомство: от данных к дашборду</a><a href="/guide/data/" >Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" >Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" >SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" >Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" >Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" >Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" >Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" aria-current=page>Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" >Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / Эксперименты</div><header class="article-heading"><h1>Точечная кастомизация через CSS</h1><p class="intro">Точечные CSS-изменения на копии дашборда и проверка после обновления.</p><div class="article-meta"><span class="badge experiment">Эксперимент</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>Зависит от DOM</span><span>7 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p>CSS полезен, когда нужна деталь оформления, которую не удаётся выразить настройками графика или темы. В Superset 6.x сначала проверьте <a href="/guide/themes/">систему тем</a>. Старые CSS-рецепты зависят от структуры страницы и могут перестать работать после обновления.</p>
+<h2 id="_1">Что будем проверять</h2>
+<p>Уменьшите или увеличьте один отступ на копии учебного дашборда. Выберите изменение, которое легко увидеть и отменить. Не начинайте с глобальной замены всех стилей приложения.</p>
+<ol>
+<li>Скопируйте дашборд и сохраните исходный CSS, если он уже есть.</li>
+<li>Откройте инструменты разработчика браузера и найдите нужный элемент.</li>
+<li>Убедитесь, что селектор затрагивает только выбранный блок.</li>
+<li>Сначала проверьте правило локально в браузере.</li>
+<li>Перенесите правило в редактор CSS дашборда, если он доступен в вашей сборке и роли.</li>
+<li>Перезагрузите страницу и проверьте обычный режим просмотра.</li>
+</ol>
+<h2 id="_2">Пример намерения, а не универсальный селектор</h2>
+<pre><code class="language-css">/* Подставьте проверенный селектор именно вашей сборки. */
+.your-tested-selector {
+  padding: 16px;
+}
+</code></pre>
+<p>Этот пример сам по себе ничего не меняет: <code>your-tested-selector</code> — обозначение места для селектора. Не выдавайте его за готовый рецепт для любого Superset. Селекторы с chart ID зависят от конкретного объекта, а <code>nth-of-type</code> — от порядка элементов.</p>
+<h2 id="_3">Матрица проверки</h2>
+<p>Проверьте широкий и узкий экран, длинный заголовок, открытые фильтры, пустой график и обе темы. Сделайте снимки до и после. Запишите версию Superset, селектор, причину изменения и способ отката.</p>
+<p>Нельзя скрывать CSS-правилом элемент и считать, что доступ к данным ограничен. Оформление не заменяет разрешения, RLS и настройки публикации.</p>
+<h2 id="_4">После обновления</h2>
+<p>Сначала проверьте исходный дашборд без CSS, затем копию с правилом. Если оформление сломалось, отключите локальное правило и повторно исследуйте DOM. Не добавляйте цепочку <code>!important</code>, пока не понятна причина.</p>
+<h2 id="_5">Источники</h2>
+<ul>
+<li><a href="https://preset.io/blog/customizing-superset-dashboards-with-css/">Preset: Customizing Superset Dashboards with CSS</a>.</li>
+<li><a href="https://preset.io/blog/customizing-apache-superset-dashboards-with-css-additional-tips-and-tricks/">Preset: дополнительные приёмы</a>.</li>
+<li><a href="https://superset.apache.org/admin-docs/6.1.0/configuration/theming/">Темы Superset 6.1.0</a>.</li>
+</ul></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Что будем проверять</a></li>
+<li><a href="#_2">Пример намерения, а не универсальный селектор</a></li>
+<li><a href="#_3">Матрица проверки</a></li>
+<li><a href="#_4">После обновления</a></li>
+<li><a href="#_5">Источники</a></li>
+</ul>
+</div>
+</aside></div><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/experiments/css.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>

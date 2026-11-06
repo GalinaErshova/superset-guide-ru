@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Общие метрики: выручка, затраты и прибыль · Superset по-русски</title><meta name="description" content="Сохранить определения выручки, прибыли и маржинальности.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/metrics/"><meta property="og:title" content="Общие метрики: выручка, затраты и прибыль · Superset по-русски"><meta property="og:description" content="Сохранить определения выручки, прибыли и маржинальности."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/metrics/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" >Первое знакомство: от данных к дашборду</a><a href="/guide/data/" >Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" >Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" >SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" aria-current=page>Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" >Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" >Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" >Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" >Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" >Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / Данные и расчёты</div><header class="article-heading"><h1>Общие метрики: выручка, затраты и прибыль</h1><p class="intro">Сохранить определения выручки, прибыли и маржинальности.</p><div class="article-meta"><span class="badge stable">Стабильно</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>6.1</span><span>10 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p><strong>Цель:</strong> определить формулы один раз в датасете и использовать их в нескольких графиках. Это уменьшает риск, что два автора назовут «Выручкой» разные расчёты.</p>
+<p>Нужны права редактирования собственного учебного датасета. Если <code>sales</code> общий и его меняет только владелец, согласуйте добавление метрик либо используйте собственный <code>sales_virtual_training</code> из <a href="/guide/sql-lab/">урока SQL Lab</a>. Не меняйте рабочие метрики команды ради упражнения.</p>
+<h2 id="_1">Метрика и вычисляемая колонка</h2>
+<p><strong>Метрика</strong> рассчитывается для группы строк: например, <code>SUM(revenue)</code>. Группа определяется графиком и фильтрами. По регионам получатся региональные суммы; без группировки — общий итог.</p>
+<p><strong>Calculated column</strong>, вычисляемая колонка, описывает выражение для строки: например, <code>revenue - cost</code>. Её можно использовать как поле, но итог нужно агрегировать отдельно. В обычной вычисляемой колонке не следует задавать <code>SUM(...)</code>: агрегат относится к метрике.</p>
+<p>Формула прибыли в этом уроке — учебная разница выручки и затрат. В рабочем проекте прежде выясните состав затрат, налоги, скидки, возвраты и валюты. Одно удачное название не задаёт экономический смысл показателя.</p>
+<h2 id="_2">Добавьте сохранённые метрики</h2>
+<ol>
+<li>Откройте <strong>Datasets</strong>, найдите свой учебный датасет и выберите <strong>Edit</strong>.</li>
+<li>Перейдите на вкладку <strong>Metrics</strong> и добавьте метрику. Названия полей редактора могут быть <strong>Metric</strong>, <strong>Label</strong>, <strong>SQL expression</strong>, <strong>Description</strong>.</li>
+<li>Создайте метрику с техническим именем <code>total_revenue</code>, отображаемым названием «Выручка» и выражением <code>SUM(revenue)</code>.</li>
+<li>Аналогично создайте <code>total_cost</code> / «Затраты» с выражением <code>SUM(cost)</code>.</li>
+<li>Добавьте <code>total_profit</code> / «Прибыль» с выражением <code>SUM(revenue) - SUM(cost)</code>.</li>
+<li>В описаниях укажите единицы и смысл. Для прибыли: «Выручка минус затраты; учебный показатель, условные денежные единицы».</li>
+<li>Сохраните датасет. Вернитесь в Explore и обновите список полей, если новые метрики не появились сразу.</li>
+</ol>
+<p>Используйте имена исходных колонок, а не псевдонимы соседних метрик: выражение <code>total_revenue - total_cost</code> не становится корректным SQL только потому, что обе метрики созданы в интерфейсе.</p>
+<h2 id="_3">Постройте контрольную таблицу</h2>
+<p>Создайте график типа <strong>Table</strong>, выберите режим агрегирования и добавьте три сохранённые метрики. Не задавайте группировку, временные и другие фильтры. После запуска ожидается одна строка: <strong>156 000</strong>, <strong>98 000</strong>, <strong>58 000</strong>.</p>
+<p>Сохраните таблицу как «Итоги продаж · учебный» и добавьте на дашборд. Если таблица использует новый виртуальный датасет, заново проверьте Scoping регионального фильтра: добавление графика не доказывает, что фильтр уже корректно связан с ним.</p>
+<h2 id="_4">Почему процент нельзя усреднять бездумно</h2>
+<p>Для маржинальности всего набора обычно требуется отношение сумм, а не среднее процентов отдельных заказов. Пример выражения, совместимого со многими SQL-движками:</p>
+<pre><code class="language-sql">1.0 * (SUM(revenue) - SUM(cost)) / NULLIF(SUM(revenue), 0)
+</code></pre>
+<p><code>NULLIF</code> предотвращает деление на ноль; конкретное поведение NULL следует согласовать с бизнесом. Если формат графика сам переводит долю в проценты, не умножайте выражение ещё и на 100. Для этого упражнения достаточно проверить денежные итоги; процентную метрику добавляйте только после проверки синтаксиса вашей базы.</p>
+<p>NULL в исходных суммах тоже требует решения: агрегаты обычно пропускают такие значения. Не превращайте пропущенные затраты в нули автоматически, иначе прибыль может оказаться завышенной.</p>
+<h2 id="_5">Упражнение и проверка</h2>
+<p>В графике выручки замените вручную настроенный <code>SUM(revenue)</code> на сохранённую метрику «Выручка». Значения должны остаться теми же. В таблице итогов проверьте равенство: <strong>156 000 − 98 000 = 58 000</strong>. Затем включите региональный фильтр и убедитесь, что равенство сохраняется для выбранного региона.</p>
+<p>Далее: <a href="/guide/publish/">проверка и публикация</a>.</p>
+<h2 id="_6">Источники</h2>
+<ul>
+<li><a href="https://superset.apache.org/user-docs/6.1.0/using-superset/creating-your-first-dashboard/">Apache Superset: Superset semantic layer</a>.</li>
+<li><a href="https://docs.preset.io/docs/using-metrics-and-calculated-columns">Preset: Using Metrics and Calculated Columns</a>.</li>
+</ul></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Метрика и вычисляемая колонка</a></li>
+<li><a href="#_2">Добавьте сохранённые метрики</a></li>
+<li><a href="#_3">Постройте контрольную таблицу</a></li>
+<li><a href="#_4">Почему процент нельзя усреднять бездумно</a></li>
+<li><a href="#_5">Упражнение и проверка</a></li>
+<li><a href="#_6">Источники</a></li>
+</ul>
+</div>
+</aside></div><nav class="lesson-pagination" aria-label="Уроки"><a href="/guide/sql-lab/">← Предыдущий урок</a><a href="/guide/publish/">Следующий урок →</a></nav><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/learn/07-metrics.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>

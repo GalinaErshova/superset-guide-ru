@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SQL Lab: проверьте цифры отдельным запросом · Superset по-русски</title><meta name="description" content="Проверить данные SQL-запросом и сохранить виртуальный датасет.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/sql-lab/"><meta property="og:title" content="SQL Lab: проверьте цифры отдельным запросом · Superset по-русски"><meta property="og:description" content="Проверить данные SQL-запросом и сохранить виртуальный датасет."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/sql-lab/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" >Первое знакомство: от данных к дашборду</a><a href="/guide/data/" >Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" >Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" aria-current=page>SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" >Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" >Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" >Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" >Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" >Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" >Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / Данные и расчёты</div><header class="article-heading"><h1>SQL Lab: проверьте цифры отдельным запросом</h1><p class="intro">Проверить данные SQL-запросом и сохранить виртуальный датасет.</p><div class="article-meta"><span class="badge stable">Стабильно</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>6.1</span><span>12 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p><strong>Цель:</strong> независимо сверить итоги графика и понять, как из SQL-запроса получается виртуальный датасет. SQL Lab полезен для контроля данных и подготовки запросов, когда визуальных настроек Explore недостаточно.</p>
+<p>Понадобятся разрешения на SQL Lab и на учебную базу. Доступ к графику не гарантирует доступ к SQL-редактору. Если пункта меню нет, запросите его у администратора; остальные уроки можно проходить на уже подготовленном датасете.</p>
+<h2 id="_1">Узнайте адрес исходной таблицы</h2>
+<p>Имя датасета в Superset может отличаться от имени таблицы. В описании <code>sales</code> найдите соединение, схему и физическую таблицу либо уточните их у владельца. В примерах ниже таблица называется <code>sales</code>; при необходимости замените её на согласованное полное имя, например <code>training.sales</code>.</p>
+<p>Синтаксис кавычек, дат и функций зависит от СУБД. Приведённые запросы используют обычные агрегаты SQL и не меняют данные. Не выполняйте полученный из внешнего источника запрос, пока не понимаете его действие.</p>
+<h2 id="_2">Сверьте контрольные суммы</h2>
+<ol>
+<li>Откройте <strong>SQL → SQL Lab</strong>; в некоторых сборках пункт называется <strong>SQL Lab → SQL Editor</strong>.</li>
+<li>Выберите учебное соединение и нужную схему. Проверьте их перед запуском.</li>
+<li>Вставьте запрос и нажмите <strong>Run</strong>:</li>
+</ol>
+<pre><code class="language-sql">SELECT
+  COUNT(*) AS row_count,
+  COUNT(DISTINCT order_id) AS order_count,
+  SUM(revenue) AS total_revenue,
+  SUM(cost) AS total_cost,
+  SUM(revenue) - SUM(cost) AS total_profit
+FROM sales;
+</code></pre>
+<p>Ожидается одна строка: <code>row_count = 12</code>, <code>order_count = 12</code>, <code>total_revenue = 156000</code>, <code>total_cost = 98000</code>, <code>total_profit = 58000</code>. Это контроль именно полного учебного набора. При RLS или других ограничениях доступа пользователь может видеть меньший срез; его нельзя объявлять полным без проверки прав.</p>
+<p>Если количество строк больше числа уникальных заказов, есть повторяющиеся ключи либо пропуски идентификаторов. Посмотрите проблемные группы:</p>
+<pre><code class="language-sql">SELECT order_id, COUNT(*) AS rows_per_order
+FROM sales
+GROUP BY order_id
+HAVING COUNT(*) &gt; 1;
+</code></pre>
+<p>Для правильного учебного набора второй запрос не должен возвращать строки. Отдельно проверьте пустые <code>order_id</code>: <code>COUNT(DISTINCT ...)</code> обычно не учитывает NULL.</p>
+<h2 id="_3">Сравните регионы</h2>
+<p>Выполните запрос:</p>
+<pre><code class="language-sql">SELECT
+  region,
+  SUM(revenue) AS revenue,
+  SUM(cost) AS cost
+FROM sales
+GROUP BY region
+ORDER BY region;
+</code></pre>
+<p>Сопоставьте каждую строку с графиком. Для выбранного в панели региона сумма выручки и сумма затрат должны совпадать с соответствующей строкой результата. Не сравнивайте график с активным периодом и SQL без ограничения дат: это разные вопросы к данным.</p>
+<h2 id="_4">Создайте виртуальный датасет без потери детализации</h2>
+<p>Для следующего шага выполните отдельный запрос:</p>
+<pre><code class="language-sql">SELECT order_id, order_date, region, category, revenue, cost
+FROM sales;
+</code></pre>
+<p>Под результатом выберите <strong>Create chart</strong> или <strong>Explore</strong>. В окне сохранения датасета выберите <strong>Save as new</strong>, задайте имя <code>sales_virtual_training</code> и нажмите <strong>Save &amp; Explore</strong>. Если действие недоступно, проверьте право создания датасетов.</p>
+<p>Виртуальный датасет хранит определение запроса; это не автоматически созданная материальная копия данных. Мы оставили одну строку на заказ, чтобы сохранить возможность группировать по региону, категории и дате. Если сохранить уже агрегированный запрос по регионам, из него нельзя восстановить детализацию отдельных заказов.</p>
+<h2 id="_5">Упражнение и проверка</h2>
+<p>Запустите контрольный запрос и запишите пять результатов. Затем откройте виртуальный датасет в Explore и постройте <code>SUM(revenue)</code> без фильтров: ожидается <strong>156 000</strong>. Сохранение SQL-запроса в <strong>Saved queries</strong> и создание датасета — разные операции; убедитесь, что новый объект появился именно в <strong>Datasets</strong>.</p>
+<p>Далее: <a href="/guide/metrics/">общие метрики и прибыль</a>.</p>
+<h2 id="_6">Источники</h2>
+<ul>
+<li><a href="https://docs.preset.io/docs/virtual-datasets">Preset: Virtual Datasets</a>.</li>
+<li><a href="https://docs.preset.io/docs/query-history-1">Preset: Creating Charts from SQL Queries</a>.</li>
+<li><a href="https://superset.apache.org/user-docs/6.1.0/using-superset/sql-templating/">Apache Superset: SQL Templating</a>.</li>
+</ul></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Узнайте адрес исходной таблицы</a></li>
+<li><a href="#_2">Сверьте контрольные суммы</a></li>
+<li><a href="#_3">Сравните регионы</a></li>
+<li><a href="#_4">Создайте виртуальный датасет без потери детализации</a></li>
+<li><a href="#_5">Упражнение и проверка</a></li>
+<li><a href="#_6">Источники</a></li>
+</ul>
+</div>
+</aside></div><nav class="lesson-pagination" aria-label="Уроки"><a href="/guide/filters/">← Предыдущий урок</a><a href="/guide/metrics/">Следующий урок →</a></nav><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/learn/06-sql-lab.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Добавьте фильтр и проверьте область его действия · Superset по-русски</title><meta name="description" content="Настроить период, регион и область действия фильтра.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/filters/"><meta property="og:title" content="Добавьте фильтр и проверьте область его действия · Superset по-русски"><meta property="og:description" content="Настроить период, регион и область действия фильтра."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/filters/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" >Первое знакомство: от данных к дашборду</a><a href="/guide/data/" >Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" aria-current=page>Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" >SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" >Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" >Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" >Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" >Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" >Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" >Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / Первые шаги</div><header class="article-heading"><h1>Добавьте фильтр и проверьте область его действия</h1><p class="intro">Настроить период, регион и область действия фильтра.</p><div class="article-meta"><span class="badge stable">Стабильно</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>6.1</span><span>10 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p><strong>Цель:</strong> дать читателю возможность выбрать регион и убедиться, что оба графика показывают одинаковый срез. Фильтр без проверенной области действия может создать убедительную, но неверную картину: один график изменится, а другой останется общим.</p>
+<p>Нужен собственный дашборд из <a href="/guide/dashboard/">урока 4</a>, два графика на одном датасете <code>sales</code> и право редактировать дашборд. В этом упражнении используем <strong>native filters</strong> — встроенную панель фильтров. Старый тип графика Filter Box для него не нужен.</p>
+<h2 id="_1">Создайте фильтр региона</h2>
+<ol>
+<li>Откройте «Продажи · учебный» и перейдите в <strong>Edit dashboard</strong>.</li>
+<li>Раскройте панель фильтров. Через значок настроек выберите <strong>Add/Edit Filters</strong> или <strong>Add or edit filters and controls</strong> — подпись зависит от сборки.</li>
+<li>Добавьте фильтр типа <strong>Value</strong> / <strong>Select filter</strong>. Назовите его «Регион».</li>
+<li>Выберите <strong>Dataset → sales</strong> и <strong>Column → region</strong>. Не выбирайте <code>category</code>, даже если список значений выглядит правдоподобно: проверяйте имя поля.</li>
+<li>Для первого упражнения оставьте одиночный выбор. Не задавайте обязательное значение и автоматический выбор первого элемента: начальное состояние должно показывать весь набор.</li>
+<li>Откройте вкладку <strong>Scoping</strong>. Убедитесь, что фильтр применяется к обоим учебным графикам. Если выбран режим <strong>Apply to specific panels</strong>, отметьте оба блока.</li>
+<li>Сохраните настройку фильтра и сам дашборд. В режиме просмотра выберите один из реально присутствующих регионов и нажмите <strong>Apply filters</strong>, если панель требует явного применения.</li>
+</ol>
+<h2 id="_2">Как проверить действие</h2>
+<p>Наведите указатель на фильтр или откройте сведения о нём: интерфейс может подсвечивать связанные графики. Такая подсветка помогает ориентироваться, но главный тест — значения и SQL-запрос результата.</p>
+<p>После выбора региона оба графика должны показывать данные только этого региона. Убедитесь, что название региона совпадает, запрос завершился, а на графике не остались категории из прежнего результата. Очистите выбор через <strong>Clear all</strong> либо сброс конкретного фильтра. Выручка по всем категориям снова должна давать <strong>156 000</strong>, затраты — <strong>98 000</strong>.</p>
+<p>Не ждите заранее заданной суммы для выбранного региона: распределение нужно получить из учебного файла. Для независимой проверки можно сгруппировать <code>sales</code> в SQL Lab и сравнить результат, как показано в <a href="/guide/sql-lab/">следующем уроке</a>.</p>
+<h2 id="_3">Фильтры разных уровней</h2>
+<p>Фильтр внутри Explore относится к самому графику. Фильтр дашборда передаёт условия выбранным графикам. Их сочетание может сузить результат сильнее, чем ожидает читатель. Если в графике заранее оставлена категория, очистка панели дашборда не обязательно вернёт все категории.</p>
+<p><strong>Cross-filtering</strong> — отдельный механизм: выбор элемента одного графика фильтрует другие. Его наличие и область действия также нужно проверять. Не включайте сразу несколько способов фильтрации, пока не понимаете результат каждого по отдельности.</p>
+<p>Фильтр интерфейса не ограничивает права доступа. Если пользователь не должен видеть чужие регионы, требуется настройка разрешений и, при необходимости, RLS администратором. Спрятанная категория в выпадающем списке не заменяет защиту данных.</p>
+<h2 id="_4">Частые ошибки</h2>
+<ul>
+<li><strong>Меняется один график.</strong> Проверьте Scoping и датасет второго графика.</li>
+<li><strong>Filters out of scope.</strong> Фильтр может относиться к графикам на другой вкладке, а не быть сломанным.</li>
+<li><strong>Пусто после выбора.</strong> Проверьте сочетание регионального и временного фильтров, а также ограничения внутри графика.</li>
+<li><strong>Нужны графики на разных датасетах.</strong> Совпадение названий колонок может позволить расширить область, но смысл и типы полей нужно проверить вручную.</li>
+</ul>
+<h2 id="_5">Упражнение и проверка</h2>
+<p>Временно исключите график затрат из Scoping. Выберите регион и объясните, почему два графика теперь нельзя напрямую сравнивать. Затем верните оба графика в область действия, очистите фильтры и восстановите контрольные суммы. Упражнение завершено только после восстановления правильной настройки.</p>
+<p>Далее: <a href="/guide/sql-lab/">SQL Lab</a>.</p>
+<h2 id="_6">Источники</h2>
+<ul>
+<li><a href="https://docs.preset.io/docs/managing-filters">Preset: Managing Filters</a>.</li>
+<li><a href="https://docs.preset.io/docs/scoping-a-filter">Preset: Scoping a Filter</a>.</li>
+<li><a href="https://superset.apache.org/admin-docs/6.1.0/security/">Apache Superset: Security Configurations</a>.</li>
+</ul></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Создайте фильтр региона</a></li>
+<li><a href="#_2">Как проверить действие</a></li>
+<li><a href="#_3">Фильтры разных уровней</a></li>
+<li><a href="#_4">Частые ошибки</a></li>
+<li><a href="#_5">Упражнение и проверка</a></li>
+<li><a href="#_6">Источники</a></li>
+</ul>
+</div>
+</aside></div><nav class="lesson-pagination" aria-label="Уроки"><a href="/guide/dashboard/">← Предыдущий урок</a><a href="/guide/sql-lab/">Следующий урок →</a></nav><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/learn/05-filters.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>

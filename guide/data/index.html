@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Подготовьте и проверьте учебный датасет · Superset по-русски</title><meta name="description" content="Учебные продажи: получить датасет и проверить типы полей.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/data/"><meta property="og:title" content="Подготовьте и проверьте учебный датасет · Superset по-русски"><meta property="og:description" content="Учебные продажи: получить датасет и проверить типы полей."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/data/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" >Первое знакомство: от данных к дашборду</a><a href="/guide/data/" aria-current=page>Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" >Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" >SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" >Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" >Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" >Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" >Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" >Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" >Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / Первые шаги</div><header class="article-heading"><h1>Подготовьте и проверьте учебный датасет</h1><p class="intro">Учебные продажи: получить датасет и проверить типы полей.</p><div class="article-meta"><span class="badge stable">Стабильно</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>6.1</span><span>10 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p><strong>Цель:</strong> убедиться, что исходные поля имеют подходящие типы, а одна строка соответствует одному заказу. Проверка данных нужна до оформления графиков: красивый график с неверной агрегацией остаётся неверным.</p>
+<p>Предыдущий шаг: <a href="/guide/start/">первое знакомство</a>. Основной маршрут предполагает, что физический датасет <code>sales</code> уже создан администратором и доступен вам для чтения. Чтобы менять его описание, нужны права на редактирование датасета. Если их нет, передайте результаты проверки владельцу.</p>
+<p><a href="/data/sales.csv">Скачать учебный sales.csv</a>.</p>
+<h2 id="_1">Как устроен набор</h2>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Смысл</th>
+<th>Ожидаемый тип</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>order_id</code></td>
+<td>Уникальный идентификатор заказа</td>
+<td>Строка или целое число</td>
+</tr>
+<tr>
+<td><code>order_date</code></td>
+<td>Дата заказа</td>
+<td>Date или DateTime</td>
+</tr>
+<tr>
+<td><code>region</code></td>
+<td>Регион</td>
+<td>Строка</td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td>Категория</td>
+<td>Строка</td>
+</tr>
+<tr>
+<td><code>revenue</code></td>
+<td>Выручка заказа</td>
+<td>Число</td>
+</tr>
+<tr>
+<td><code>cost</code></td>
+<td>Затраты на заказ</td>
+<td>Число</td>
+</tr>
+</tbody>
+</table>
+<p>Не складывайте <code>order_id</code>: числовой тип сам по себе не делает поле показателем. <code>region</code> и <code>category</code> подходят для группировки, а <code>order_date</code> — для ограничения периода и временных графиков.</p>
+<h2 id="_2">Проверьте поля</h2>
+<ol>
+<li>В <strong>Datasets</strong> найдите <code>sales</code>. Откройте меню действий и <strong>Edit</strong>, если оно доступно.</li>
+<li>На вкладке <strong>Columns</strong> сравните названия и типы с таблицей выше. У <code>order_date</code> должен быть указан временной тип и признак <strong>Is temporal</strong>. Этот признак помогает Superset использовать колонку как время, но не исправляет строки с неверными датами в базе.</li>
+<li>Проверьте, что <code>revenue</code> и <code>cost</code> распознаны как числа. Если они строковые, выясните причину в исходном файле или импорте. Удалять символы и приводить типы лучше в согласованном слое подготовки данных.</li>
+<li>Перейдите в <strong>Explore</strong>, выберите визуализацию <strong>Table</strong> и режим <strong>Raw records</strong>, если он доступен. Добавьте все шесть полей в <strong>Columns</strong>.</li>
+<li>Установите <strong>Time range → No filter</strong> и удалите дополнительные <strong>Filters</strong>. Нажмите <strong>Run</strong> или <strong>Run Query</strong>.</li>
+<li>Убедитесь, что лимит строк не меньше 12. Просмотрите все заказы: пустые идентификаторы, повторы, пропуски сумм и неожиданные даты требуют объяснения.</li>
+</ol>
+<p>Предпросмотр с ограничением строк помогает увидеть структуру, но не доказывает качество большого производственного датасета. Для него нужны отдельные проверки полноты и уникальности. На нашем небольшом наборе можно сверить все строки; точный SQL-контроль будет в <a href="/guide/sql-lab/">уроке про SQL Lab</a>.</p>
+<h2 id="csv">Если нужно загрузить CSV</h2>
+<p>Файл <code>sales.csv</code> — альтернативный способ подготовить упражнение. Superset загружает CSV в выбранную подключённую базу. Нужны подходящий драйвер, доступная схема, разрешённая загрузка файлов и права записи у соединения; наличие кнопки Upload само по себе этого не гарантирует.</p>
+<p>В официальном маршруте загрузка находится в <strong>Settings → Data → Database Connections → Upload file to database → Upload CSV</strong>. Выберите учебную базу, схему и новое имя таблицы; для <code>order_date</code> укажите разбор как даты. Не выбирайте рабочую таблицу для замены. Если загрузка запрещена, попросите администратора импортировать файл и зарегистрировать физический датасет. Для изучения графиков вам не нужно получать права на управление базами.</p>
+<h2 id="_3">Частые ошибки</h2>
+<ul>
+<li><strong>Виден только недавний период.</strong> Сбросьте Time range: учебные даты могут быть старше текущей недели.</li>
+<li><strong>SUM недоступна.</strong> Проверьте числовой тип поля, а не только внешний вид значений.</li>
+<li><strong>Заказов больше 12.</strong> Возможен повторный импорт либо дублирование после соединения таблиц.</li>
+<li><strong>После обновления таблицы не видно нового поля.</strong> Владелец должен синхронизировать описание датасета с базой; обновление списка графиков не заменяет эту операцию.</li>
+</ul>
+<h2 id="_4">Упражнение и проверка</h2>
+<p>Составьте короткий паспорт: «Одна строка — один заказ; ключ — <code>order_id</code>; дата — <code>order_date</code>; показатели — <code>revenue</code>, <code>cost</code>». Проверьте наличие 12 уникальных заказов. Для всего набора ожидаются <code>SUM(revenue) = 156000</code> и <code>SUM(cost) = 98000</code>. Не переходите к визуализации с необъяснённым расхождением.</p>
+<p>Далее: <a href="/guide/first-chart/">первый график</a>.</p>
+<h2 id="_5">Источники</h2>
+<ul>
+<li><a href="https://superset.apache.org/user-docs/6.1.0/using-superset/exploring-data/">Apache Superset: Exploring Data, 6.1.0</a>.</li>
+<li><a href="https://superset.apache.org/user-docs/6.1.0/using-superset/creating-your-first-dashboard/">Apache Superset: регистрация таблицы и свойства колонок</a>.</li>
+</ul></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Как устроен набор</a></li>
+<li><a href="#_2">Проверьте поля</a></li>
+<li><a href="#csv">Если нужно загрузить CSV</a></li>
+<li><a href="#_3">Частые ошибки</a></li>
+<li><a href="#_4">Упражнение и проверка</a></li>
+<li><a href="#_5">Источники</a></li>
+</ul>
+</div>
+</aside></div><nav class="lesson-pagination" aria-label="Уроки"><a href="/guide/start/">← Предыдущий урок</a><a href="/guide/first-chart/">Следующий урок →</a></nav><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/learn/02-data.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>

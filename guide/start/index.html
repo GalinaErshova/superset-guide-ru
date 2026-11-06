@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Первое знакомство: от данных к дашборду · Superset по-русски</title><meta name="description" content="Что открыть после входа и как устроены датасеты, графики и дашборды.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/start/"><meta property="og:title" content="Первое знакомство: от данных к дашборду · Superset по-русски"><meta property="og:description" content="Что открыть после входа и как устроены датасеты, графики и дашборды."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/start/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" aria-current=page>Первое знакомство: от данных к дашборду</a><a href="/guide/data/" >Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" >Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" >SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" >Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" >Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" >Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" >Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" >Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" >Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / Первые шаги</div><header class="article-heading"><h1>Первое знакомство: от данных к дашборду</h1><p class="intro">Что открыть после входа и как устроены датасеты, графики и дашборды.</p><div class="article-meta"><span class="badge stable">Стабильно</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>6.1</span><span>7 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p><strong>Цель:</strong> разобраться, где в Superset находятся данные, графики и дашборды, и подготовиться к первому упражнению. Начинаем с уже работающего Superset: устанавливать сервер аналитику для этого маршрута не требуется.</p>
+<p>Инструкции ориентированы на Apache Superset 6.1 и английский интерфейс. В русской локализации и корпоративных сборках подписи могут отличаться. Урок подготовлен по документации; прохождение всех действий на вашей установке не подтверждено.</p>
+<h2 id="_1">Что понадобится</h2>
+<p>Получите у администратора адрес Superset и личную учётную запись. Для маршрута нужны доступ к учебному датасету <code>sales</code>, создание и сохранение графиков, создание и редактирование собственного дашборда. SQL Lab понадобится позже и может требовать отдельных разрешений.</p>
+<p>Если вы видите готовый дашборд, это ещё не означает, что вам разрешено редактировать его или исследовать все исходные данные. Не используйте общую административную учётную запись для учебных упражнений: с ней невозможно проверить ограничения обычного аналитика.</p>
+<h2 id="_2">Четыре основных объекта</h2>
+<table>
+<thead>
+<tr>
+<th>Объект</th>
+<th>Что это</th>
+<th>Пример в курсе</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Database</td>
+<td>Настроенное соединение с базой данных</td>
+<td>Учебная база, выбранная администратором</td>
+</tr>
+<tr>
+<td>Dataset</td>
+<td>Таблица или SQL-запрос с описанием полей и метрик</td>
+<td><code>sales</code></td>
+</tr>
+<tr>
+<td>Chart</td>
+<td>Сохранённая настройка визуализации и запроса</td>
+<td>«Выручка по регионам»</td>
+</tr>
+<tr>
+<td>Dashboard</td>
+<td>Страница с графиками, текстом и фильтрами</td>
+<td>«Продажи · учебный»</td>
+</tr>
+</tbody>
+</table>
+<p>Superset обращается к подключённой базе за результатами запроса. Датасет не следует считать отдельной копией всех данных, а дашборд — файлом с однажды рассчитанными цифрами. Обновление источника может изменить результат графика; кэш иногда задерживает появление изменений.</p>
+<h2 id="_3">Первые действия</h2>
+<ol>
+<li>Откройте адрес вашей установки и войдите под своей учётной записью. Если используется корпоративный вход, выполните обычную процедуру вашей организации.</li>
+<li>Откройте <strong>Dashboards</strong> — список дашбордов. Найдите учебный пример, если администратор его предоставил. Посмотрите заголовки, единицы измерения и выбранный период.</li>
+<li>Откройте <strong>Charts</strong> — список сохранённых графиков. Один график может использоваться на нескольких дашбордах: изменение исходного графика отразится и там.</li>
+<li>Перейдите в <strong>Datasets</strong>. В некоторых сборках этот пункт находится внутри меню <strong>Data</strong>. Найдите <code>sales</code> поиском по имени.</li>
+<li>Откройте датасет и убедитесь, что доступны поля <code>order_id</code>, <code>order_date</code>, <code>region</code>, <code>category</code>, <code>revenue</code>, <code>cost</code>. Переход по названию датасета обычно открывает <strong>Explore</strong>, редактор графика.</li>
+<li>Если датасета нет, остановитесь на этом шаге и запросите его у администратора. Не заменяйте учебные данные похожей рабочей таблицей: контрольные результаты перестанут совпадать.</li>
+</ol>
+<h2 id="_4">Что мы будем строить</h2>
+<p>В синтетическом наборе 12 уникальных заказов. Одна строка — один заказ. <code>revenue</code> содержит выручку, <code>cost</code> — затраты; суммы указаны в условных денежных единицах. Это учебные данные, не показатели реального бизнеса.</p>
+<p>К концу маршрута вы создадите график выручки по регионам, таблицу показателей, фильтр региона и дашборд с пояснениями. Затем проверите расчёты и доступ коллеги. Полные суммы без фильтров: выручка <strong>156 000</strong>, затраты <strong>98 000</strong>, разница <strong>58 000</strong>.</p>
+<h2 id="-">Если что-то не получается</h2>
+<ul>
+<li><strong>Нет Datasets или кнопки создания графика.</strong> Попросите проверить вашу роль и разрешения; видимость меню зависит от доступа.</li>
+<li><strong>Пустой список.</strong> Сначала очистите поиск и фильтры списка, затем уточните права на нужный датасет.</li>
+<li><strong>Видите чужой график в Explore.</strong> Не нажимайте Save поверх него. Для собственного варианта используйте Save as.</li>
+</ul>
+<h2 id="_5">Упражнение и проверка</h2>
+<p>Объясните, где хранится формула показателя, а где — расположение двух графиков рядом. Ответ: переиспользуемая метрика задаётся в датасете, расположение графиков — в дашборде. Назовите все шесть полей <code>sales</code> и найдите датасет в интерфейсе. Это критерий готовности к следующему уроку.</p>
+<p>Далее: <a href="/guide/data/">проверяем учебные данные</a>.</p>
+<h2 id="_6">Источники</h2>
+<ul>
+<li><a href="https://superset.apache.org/user-docs/6.1.0/using-superset/creating-your-first-dashboard/">Apache Superset: Creating Your First Dashboard, 6.1.0</a>.</li>
+<li><a href="https://superset.apache.org/admin-docs/6.1.0/security/">Apache Superset: Security Configurations, 6.1.0</a>.</li>
+</ul></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Что понадобится</a></li>
+<li><a href="#_2">Четыре основных объекта</a></li>
+<li><a href="#_3">Первые действия</a></li>
+<li><a href="#_4">Что мы будем строить</a></li>
+<li><a href="#-">Если что-то не получается</a></li>
+<li><a href="#_5">Упражнение и проверка</a></li>
+<li><a href="#_6">Источники</a></li>
+</ul>
+</div>
+</aside></div><nav class="lesson-pagination" aria-label="Уроки"><a href="/">← На главную</a><a href="/guide/data/">Следующий урок →</a></nav><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/learn/01-start.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>

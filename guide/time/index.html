@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Периоды и даты без сюрпризов · Superset по-русски</title><meta name="description" content="Границы периода, часовые пояса и неполные месяцы.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/time/"><meta property="og:title" content="Периоды и даты без сюрпризов · Superset по-русски"><meta property="og:description" content="Границы периода, часовые пояса и неполные месяцы."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/time/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" >Первое знакомство: от данных к дашборду</a><a href="/guide/data/" >Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" >Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" >SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" >Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" aria-current=page>Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" >Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" >Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" >Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" >Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / Данные и расчёты</div><header class="article-heading"><h1>Периоды и даты без сюрпризов</h1><p class="intro">Границы периода, часовые пояса и неполные месяцы.</p><div class="article-meta"><span class="badge stable">Стабильно</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>6.1</span><span>6 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p>Ошибки периода часто выглядят как ошибки формулы. Сначала проверьте, какие строки вошли в расчёт, затем сравнивайте метрики.</p>
+<h2 id="_1">Три настройки, которые нельзя смешивать</h2>
+<p><strong>Time column</strong> определяет, по какому полю отбирать и группировать время. Дата заказа и дата оплаты отвечают на разные вопросы. <strong>Time range</strong> ограничивает набор строк. <strong>Time grain</strong> группирует выбранные строки по дням, неделям или месяцам.</p>
+<p>Для учебного файла используйте <code>order_date</code>, период с 1 января до 1 апреля 2026 года, шаг Month. Ожидаемая выручка: январь 44 000, февраль 51 000, март 61 000. Эти значения можно проверить отдельно от Superset.</p>
+<h2 id="_2">Проверка границ</h2>
+<p>Посмотрите фактическое условие в сгенерированном SQL. Для временных меток обычно удобно полуоткрытое окно: начало включено, конец исключён. Так весь март описывается как «не раньше 1 марта и раньше 1 апреля», без попытки угадать последнюю миллисекунду месяца.</p>
+<pre><code class="language-sql">SELECT SUM(revenue) AS revenue
+FROM sales
+WHERE order_date &gt;= '2026-03-01'
+  AND order_date &lt; '2026-04-01';
+</code></pre>
+<p>Пример рассчитан на поле даты; синтаксис преобразования строк и часовых поясов зависит от вашей СУБД. Не считайте текстовую колонку датой только потому, что её значения похожи на даты.</p>
+<h2 id="_3">Почему результаты расходятся</h2>
+<ul>
+<li>Один график использует дату заказа, второй — дату оплаты.</li>
+<li>Относительный период изменился между двумя проверками.</li>
+<li>«Последние 30 дней» и «предыдущий календарный месяц» — разные выборки.</li>
+<li>Часовой пояс базы, приложения или бизнес-отчётности сдвигает границу дня.</li>
+<li>Текущий месяц неполный, а сравнивается с полным предыдущим.</li>
+<li>Фильтр дашборда не распространяется на один из графиков.</li>
+</ul>
+<h2 id="_4">Практическое правило</h2>
+<p>Для расследования зафиксируйте абсолютный период, поле даты, часовой пояс и время обновления данных. Сохраните SQL и фильтры. Только после воспроизводимой сверки возвращайте относительный период.</p>
+<h2 id="_5">Источники</h2>
+<ul>
+<li><a href="https://superset.apache.org/user-docs/6.1.0/using-superset/exploring-data/">Учебный пример работы с временными графиками</a>.</li>
+<li><a href="https://superset.apache.org/admin-docs/6.1.0/configuration/timezones/">Часовые пояса: документация администратора</a>.</li>
+</ul></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Три настройки, которые нельзя смешивать</a></li>
+<li><a href="#_2">Проверка границ</a></li>
+<li><a href="#_3">Почему результаты расходятся</a></li>
+<li><a href="#_4">Практическое правило</a></li>
+<li><a href="#_5">Источники</a></li>
+</ul>
+</div>
+</aside></div><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/reference/time.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>

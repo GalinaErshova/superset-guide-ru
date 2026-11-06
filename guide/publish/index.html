@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Проверьте дашборд и откройте доступ читателям · Superset по-русски</title><meta name="description" content="Проверить права, цифры и фильтры перед передачей заказчику.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/publish/"><meta property="og:title" content="Проверьте дашборд и откройте доступ читателям · Superset по-русски"><meta property="og:description" content="Проверить права, цифры и фильтры перед передачей заказчику."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/publish/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" >Первое знакомство: от данных к дашборду</a><a href="/guide/data/" >Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" >Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" >SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" >Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" >Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" aria-current=page>Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" >Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" >Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" >Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / Дашборды</div><header class="article-heading"><h1>Проверьте дашборд и откройте доступ читателям</h1><p class="intro">Проверить права, цифры и фильтры перед передачей заказчику.</p><div class="article-meta"><span class="badge stable">Стабильно</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>6.1</span><span>8 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p><strong>Цель:</strong> передать дашборд другому человеку так, чтобы он увидел правильные показатели, понятные фильтры и только разрешённые данные. Публикация завершает учебный маршрут, но не отменяет последующую проверку источника и расчётов.</p>
+<p>Нужны права владельца учебного дашборда. Для настройки ролей, доступа к датасетам и RLS обычно требуется администратор. В этом уроке не нужно делать дашборд общедоступным в интернете: передача коллеге внутри Superset — отдельный сценарий.</p>
+<h2 id="_1">Проверьте цифры</h2>
+<p>Откройте дашборд в режиме просмотра и очистите пользовательские фильтры. Проверьте ограничения времени и категории внутри самих графиков. Панель <strong>Clear all</strong> не обязана убирать условия, сохранённые в Explore.</p>
+<p>Для полного учебного набора ожидаются: выручка <strong>156 000</strong>, затраты <strong>98 000</strong>, прибыль <strong>58 000</strong>. Сверьте их с независимым запросом из <a href="/guide/sql-lab/">урока SQL Lab</a>. Если график показывает старое значение, проверьте время обновления и выполните <strong>Force refresh</strong>, если действие доступно. Принудительное обновление помогает проверить кэш, но не исправляет неверный SQL или данные.</p>
+<p>Выберите один регион. Убедитесь, что все относящиеся к нему графики и таблица итогов обновились. Сбросьте регион и снова проверьте полный итог. Повторите тест после перезагрузки страницы: сохранённое состояние и текущее состояние браузера могут различаться.</p>
+<h2 id="_2">Проверьте понятность</h2>
+<ul>
+<li>В заголовке указано, что анализируется.</li>
+<li>У показателей есть единицы измерения и определения.</li>
+<li>Видно, что данные синтетические, а не производственные.</li>
+<li>Понятно, какой период отображается и какие фильтры активны.</li>
+<li>Названия графиков не обещают «прибыль», если показана только выручка.</li>
+<li>На рабочем размере окна подписи читаются, легенды не обрезаются, пустые результаты объяснимы.</li>
+</ul>
+<p>Для будущего рабочего дашборда также укажите владельца, источник данных и ожидаемую частоту обновления. Не обещайте «данные в реальном времени», если фактически витрина загружается раз в сутки.</p>
+<h2 id="superset">Опубликуйте внутри Superset</h2>
+<ol>
+<li>Сохраните изменения всех графиков и самого дашборда.</li>
+<li>Переключите состояние рядом с заголовком с <strong>Draft</strong> на <strong>Published</strong>. Подпись или размещение переключателя могут отличаться в корпоративной сборке.</li>
+<li>Скопируйте ссылку через доступное меню <strong>Share</strong>. Если хотите передать выбранный срез, используйте функцию постоянной ссылки с состоянием фильтров, когда она доступна, и отдельно проверьте её поведение.</li>
+<li>Попросите коллегу с обычной читательской ролью открыть ссылку. Для упражнения можно использовать отдельную согласованную тестовую учётную запись. Не передавайте собственные учётные данные.</li>
+</ol>
+<p><strong>Published не означает «доступно всем».</strong> Видимость зависит от прав на данные и настроек доступа к дашбордам. При включённом <code>DASHBOARD_RBAC</code> администратор может использовать роли дашборда; в других конфигурациях важны права на исходные датасеты. Ссылка сама по себе не выдаёт разрешений.</p>
+<h2 id="_3">Что должен проверить читатель</h2>
+<p>Читатель открывает страницу без ошибки доступа, видит нужные графики, выбирает регион и получает согласованные значения. При этом ему не обязательно доступны <strong>Edit dashboard</strong>, SQL Lab или все исходные записи. Проверка только под Admin не показывает, как работает доступ обычного пользователя.</p>
+<p>Если дашборд открывается, но отдельный график сообщает об отсутствии прав, передайте администратору ссылку, имя графика, имя датасета и точный текст ошибки. Не исправляйте ситуацию выдачей роли Admin всем читателям.</p>
+<h2 id="_4">Упражнение и проверка</h2>
+<p>Составьте акт приёмки из четырёх пунктов: полный итог сверён; региональный фильтр действует на нужные графики; подписи и единицы понятны; доступ проверен под читательской ролью. Для каждого укажите «проверено» или конкретную оставшуюся проблему. Если второго пользователя пока нет, честно отметьте «доступ читателя не проверен» — публикация под своей учётной записью не заменяет этот тест.</p>
+<p>Теперь у вас есть первый учебный дашборд и воспроизводимый способ проверять его перед передачей. Для следующего проекта начните с вопроса пользователя, детализации данных и определений метрик, затем переходите к оформлению.</p>
+<h2 id="_5">Источники</h2>
+<ul>
+<li><a href="https://superset.apache.org/user-docs/6.1.0/using-superset/creating-your-first-dashboard/">Apache Superset: Publishing a Dashboard и Manage access</a>.</li>
+<li><a href="https://superset.apache.org/admin-docs/6.1.0/security/">Apache Superset: Security Configurations, 6.1.0</a>.</li>
+<li><a href="https://docs.preset.io/docs/creating-a-dashboard">Preset: Creating a Dashboard — Chart Options</a>.</li>
+</ul></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Проверьте цифры</a></li>
+<li><a href="#_2">Проверьте понятность</a></li>
+<li><a href="#superset">Опубликуйте внутри Superset</a></li>
+<li><a href="#_3">Что должен проверить читатель</a></li>
+<li><a href="#_4">Упражнение и проверка</a></li>
+<li><a href="#_5">Источники</a></li>
+</ul>
+</div>
+</aside></div><nav class="lesson-pagination" aria-label="Уроки"><a href="/guide/metrics/">← Предыдущий урок</a><a href="/library/">Перейти в справочник →</a></nav><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/learn/08-publish.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>

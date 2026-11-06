@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Дашборд, который можно прочитать · Superset по-русски</title><meta name="description" content="Композиция, подписи, цвет и полезная плотность информации.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/design/"><meta property="og:title" content="Дашборд, который можно прочитать · Superset по-русски"><meta property="og:description" content="Композиция, подписи, цвет и полезная плотность информации."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/design/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" >Первое знакомство: от данных к дашборду</a><a href="/guide/data/" >Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" >Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" >SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" >Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" >Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" >Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" aria-current=page>Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" >Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" >Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / Дашборды</div><header class="article-heading"><h1>Дашборд, который можно прочитать</h1><p class="intro">Композиция, подписи, цвет и полезная плотность информации.</p><div class="article-meta"><span class="badge stable">Стабильно</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>6.1</span><span>6 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p>Хороший экран помогает принять решение. До выбора цветов запишите: кто читает дашборд, какой вопрос задаёт и какое действие сможет выполнить после просмотра.</p>
+<h2 id="_1">Соберите историю</h2>
+<p>В верхней части разместите название, период и ключевые итоги. Ниже покажите динамику и основные причины изменений. Детальную таблицу оставьте для проверки конкретных строк. Это рекомендация по композиции, а не обязательный шаблон Superset.</p>
+<p>На учебном дашборде «Продажи» достаточно трёх блоков: общая выручка, выручка по месяцам, сравнение регионов. Прибыль можно добавить после согласования её определения. Не заполняйте свободное место графиками без вопроса.</p>
+<h2 id="_2">Подписи важнее декора</h2>
+<p>Вместо «Chart 12» напишите «Выручка по регионам, у. е.». Для процентов поясните знаменатель. Для план-факта укажите источник плана. Добавьте текстовый блок с определением показателей, источником и правилом обновления данных. Время обновления страницы само по себе не означает свежесть данных в хранилище.</p>
+<h2 id="_3">Цвет и доступность</h2>
+<p>Используйте один цвет для одной сущности во всех графиках. Для статуса добавляйте подпись, чтобы смысл не зависел только от различения красного и зелёного. Проверьте контраст подписей, размер шрифта и длинные названия категорий. Посмотрите экран в тёмной теме, если пользователи её включают.</p>
+<h2 id="_4">Проверка перед передачей</h2>
+<ol>
+<li>Откройте экран на обычном ноутбуке и при увеличении масштаба браузера.</li>
+<li>Убедитесь, что нужные фильтры заметны и их текущее состояние понятно.</li>
+<li>Выберите категорию без данных: пустой результат должен быть объяснимым.</li>
+<li>Проверьте заголовки, единицы, периоды и точность округления.</li>
+<li>Попросите коллегу назвать главный вывод без ваших пояснений.</li>
+</ol>
+<p>Если коллега сначала спрашивает, что означает число, улучшайте подпись. CSS не исправит неопределённую метрику.</p>
+<h2 id="_5">Источники</h2>
+<ul>
+<li><a href="https://superset.apache.org/user-docs/6.1.0/using-superset/creating-your-first-dashboard/">Официальный маршрут сборки дашборда</a>.</li>
+<li><a href="https://preset.io/blog/customizing-superset-dashboards-with-css/">Preset: оформление и ограничения CSS</a>.</li>
+</ul>
+<p>Чек-лист композиции — редакционная рекомендация этого справочника.</p></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Соберите историю</a></li>
+<li><a href="#_2">Подписи важнее декора</a></li>
+<li><a href="#_3">Цвет и доступность</a></li>
+<li><a href="#_4">Проверка перед передачей</a></li>
+<li><a href="#_5">Источники</a></li>
+</ul>
+</div>
+</aside></div><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/reference/design.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>

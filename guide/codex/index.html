@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Codex и ваш стенд Superset · Superset по-русски</title><meta name="description" content="Подключить Codex к тестовому стенду для работы с SQL, темами и графиками.">
+<link rel="canonical" href="https://superset.galaershova.ru/guide/codex/"><meta property="og:title" content="Codex и ваш стенд Superset · Superset по-русски"><meta property="og:description" content="Подключить Codex к тестовому стенду для работы с SQL, темами и графиками."><meta property="og:type" content="website"><meta property="og:url" content="https://superset.galaershova.ru/guide/codex/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script></head>
+<body><a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
+<div class="layout"><aside id="sidebar" class="sidebar"><form class="search" action="/search/"><label for="q">Поиск по справочнику</label><div class="search-field"><input id="q" type="search" name="q" placeholder="Например, фильтры" autocomplete="off"><button type="submit" aria-label="Найти">↵</button></div></form><nav aria-label="Основная навигация"><div class="nav-top"><a href="/" >Начало</a><a href="/library/" >Все материалы</a><a href="/topics/" >По темам</a><a href="/experiments/" >Эксперименты</a><a href="/updates/" >Что нового</a></div><section class="nav-group"><h2>Первые шаги</h2><a href="/guide/start/" >Первое знакомство: от данных к дашборду</a><a href="/guide/data/" >Подготовьте и проверьте учебный датасет</a><a href="/guide/first-chart/" >Постройте первый график: выручка по регионам</a><a href="/guide/dashboard/" >Соберите дашборд из двух графиков</a><a href="/guide/filters/" >Добавьте фильтр и проверьте область его действия</a></section><section class="nav-group"><h2>Данные и расчёты</h2><a href="/guide/sql-lab/" >SQL Lab: проверьте цифры отдельным запросом</a><a href="/guide/metrics/" >Общие метрики: выручка, затраты и прибыль</a><a href="/guide/time/" >Периоды и даты без сюрпризов</a></section><section class="nav-group"><h2>Дашборды</h2><a href="/guide/publish/" >Проверьте дашборд и откройте доступ читателям</a><a href="/guide/charts/" >Как выбрать график</a><a href="/guide/design/" >Дашборд, который можно прочитать</a><a href="/guide/performance/" >Почему дашборд загружается медленно</a></section><section class="nav-group"><h2>Оформление</h2><a href="/guide/themes/" >Темы и цвета дашборда</a></section><section class="nav-group"><h2>Справка</h2><a href="/guide/troubleshooting/" >Если что-то не получилось</a><a href="/guide/glossary/" >Словарь интерфейса</a><a href="/guide/sources/" >Источники и русскоязычные аналоги</a><a href="/guide/editorial/" >Актуальность и правила обновления</a></section><section class="nav-group"><h2>Эксперименты</h2><a href="/guide/mcp/" >AI-клиент и Superset через MCP</a><a href="/guide/ai-assistant/" >Встроенный AI-ассистент: следим за разработкой</a><a href="/guide/nl-explorer/" >Ask Data: стороннее расширение</a><a href="/guide/css/" >Точечная кастомизация через CSS</a></section><section class="nav-group"><h2>Обновления</h2><a href="/guide/releases/" >Релизы: что важно аналитику</a></section><section class="nav-group"><h2>AI и MCP</h2><a href="/guide/codex/" aria-current=page>Codex и ваш стенд Superset</a></section></nav><p class="sidebar-note">Независимый справочник<br>Базовая версия: 6.1</p></aside>
+<div class="workspace"><main id="main" tabindex="-1"><div class="breadcrumbs"><a href="/library/">Справочник</a> / AI и MCP</div><header class="article-heading"><h1>Codex и ваш стенд Superset</h1><p class="intro">Подключить Codex к тестовому стенду для работы с SQL, темами и графиками.</p><div class="article-meta"><span class="badge experiment">Эксперимент</span><span class="fresh" data-fresh="2026-11-06" hidden>Новое</span><span>Зависит от подключения</span><span>8 мин</span><span>Сверено 2026-11-06</span></div></header><div class="article-grid"><article class="prose"><p>Codex можно использовать как помощника в разработке: готовить SQL, разбирать настройки, редактировать CSS и конфигурацию в Git. Для работы с живыми объектами нужен доступ к вашему Superset через доступный интерфейс или MCP. Наличие установленного Superset само по себе не подключает его к Codex.</p>
+<h2 id="_1">Два способа работы</h2>
+<p><strong>Через файлы проекта.</strong> Дайте Codex репозиторий с SQL, описаниями датасетов, темами и конфигурацией без секретов. Помощник сможет готовить изменения в отдельной ветке. Применение на стенде и проверка результата — отдельные шаги. Работа с файлами не требует включать встроенного AI-ассистента в Superset.</p>
+<p><strong>Через MCP.</strong> Администратор запускает MCP-сервер поддерживаемой сборки Superset. Codex подключается к нему как клиент. Возможные операции определяет сервер: перечень дашбордов, исследование датасетов, выполнение запросов, создание графиков и другие инструменты. Сначала проверьте фактически доступный список, а не обещания из чужой статьи.</p>
+<h2 id="_2">Что подготовить</h2>
+<ul>
+<li>Версию и способ установки Superset.</li>
+<li>Адрес стенда, достижимый из среды выполнения Codex.</li>
+<li>Отдельную учётную запись с правами на учебную область.</li>
+<li>Настроенную аутентификацию MCP и адрес endpoint, если выбран этот путь.</li>
+<li>Тестовый датасет и один дашборд, который разрешено изменять.</li>
+<li>Git-репозиторий для SQL, темы и документации изменений.</li>
+</ul>
+<p>Локальный адрес сервера внутри контейнера и адрес, доступный с ноутбука, могут различаться. Стенд в VPN требует рабочего сетевого пути. Не публикуйте MCP без аутентификации ради удобства подключения. Пароли и токены не нужно вставлять в учебные статьи, Git или текст задания.</p>
+<h2 id="_3">Подключение клиента</h2>
+<p>Официальная документация Codex описывает управление MCP через CLI и конфигурацию. Схема команды для уже настроенного HTTP-сервера:</p>
+<pre><code class="language-text">codex mcp add superset --url https://YOUR-HOST/mcp
+codex mcp list
+</code></pre>
+<p><code>YOUR-HOST</code> нужно заменить настоящим адресом. Эта команда не запускает сервер, не выдаёт права и не настраивает аутентификацию за вас. Способ входа должен соответствовать конфигурации Superset. Наличие записи в списке ещё не доказывает успешный вызов инструмента.</p>
+<h2 id="_4">Первый проверяемый результат</h2>
+<p>Поручите прочитать структуру учебного датасета и объяснить метрику выручки. Затем попросите получить сумму с явно указанным периодом и сравните её с независимым SQL. Только после этого расширяйте сценарий до создания одного учебного графика.</p>
+<p>Пример задания после подтверждения разрешений:</p>
+<blockquote>
+<p>На тестовом датасете sales создай отдельный график выручки по регионам с префиксом «Учебный». Не изменяй существующие объекты. Покажи формулу и фильтры. Сверь общий итог с 156000 и верни ссылку на новый график.</p>
+</blockquote>
+<p>Доступность создания зависит от инструментов конкретного MCP-сервера и прав пользователя. Если записи нет, можно подготовить SQL и параметры графика для ручного применения. Подключение и создание объектов в рамках подготовки этого справочника не выполнялись.</p>
+<h2 id="_5">Источники</h2>
+<ul>
+<li><a href="https://learn.chatgpt.com/docs/extend/mcp?surface=cli">OpenAI: Model Context Protocol в Codex</a>.</li>
+<li><a href="https://superset.apache.org/admin-docs/6.1.0/configuration/mcp-server/">Superset: MCP Server Deployment &amp; Authentication, 6.1.0</a>.</li>
+</ul></article><aside class="toc"><p>На этой странице</p><div class="toc">
+<ul>
+<li><a href="#_1">Два способа работы</a></li>
+<li><a href="#_2">Что подготовить</a></li>
+<li><a href="#_3">Подключение клиента</a></li>
+<li><a href="#_4">Первый проверяемый результат</a></li>
+<li><a href="#_5">Источники</a></li>
+</ul>
+</div>
+</aside></div><div class="article-end">Опубликовано 2026-11-06 · Обновлено 2026-11-06<br><a href="https://github.com/GalinaErshova/superset-guide-ru/issues/new">Сообщить об ошибке</a></div></main><footer><span>Галина Ершова · Superset по-русски</span><a href="/guide/editorial/">Актуальность и статусы</a><a href="https://github.com/GalinaErshova/superset-guide-ru/edit/codex/superset-guide/content/experiments/codex.md">Предложить правку</a><a href="/feed.xml">RSS / Atom</a><p>Независимый учебный проект. Apache Superset — продукт Apache Software Foundation.</p></footer></div></div>
+<div class="toast" role="status" id="toast" hidden></div></body></html>
