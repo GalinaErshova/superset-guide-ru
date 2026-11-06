@@ -88,12 +88,59 @@ def nav(active):
         groups.append(f'<section class="nav-group"><h2>{e(group)}</h2>' + ''.join(f'<a href="{x["url"]}" {"aria-current=page" if active == x["slug"] else ""}>{e(x["title"])}</a>' for x in items) + '</section>')
     return f'<nav aria-label="Основная навигация"><div class="nav-top">{links}</div>{"".join(groups)}</nav>'
 
+def seo(title, desc, path, article=None):
+    url = ORIGIN + path
+    indexable = path not in ('/search/', '/404.html')
+    full_title = f'{title} · Superset по-русски'
+    meta = {
+        'description': desc,
+        'author': 'Галина Ершова',
+        'robots': 'index, follow, max-image-preview:large' if indexable else 'noindex, follow',
+        'twitter:card': 'summary',
+        'twitter:title': full_title,
+        'twitter:description': desc,
+    }
+    og = {
+        'og:title': full_title, 'og:description': desc,
+        'og:type': 'article' if article else 'website', 'og:url': url,
+        'og:locale': 'ru_RU', 'og:site_name': 'Superset по-русски',
+    }
+    site = {'@type': 'WebSite', '@id': ORIGIN + '/#website', 'url': ORIGIN + '/',
+            'name': 'Superset по-русски', 'inLanguage': 'ru'}
+    page = {'@type': 'WebPage', '@id': url + '#webpage', 'url': url,
+            'name': full_title, 'description': desc, 'inLanguage': 'ru',
+            'isPartOf': {'@id': site['@id']}}
+    graph = [site, page]
+    if article:
+        og.update({'article:published_time': article['published'],
+                   'article:modified_time': article['updated'],
+                   'article:section': article['group']})
+        document = {'@type': 'Article', '@id': url + '#article', 'url': url,
+                    'headline': title, 'description': desc, 'inLanguage': 'ru',
+                    'datePublished': article['published'], 'dateModified': article['updated'],
+                    'articleSection': article['group'],
+                    'author': {'@type': 'Person', 'name': 'Галина Ершова'},
+                    'mainEntityOfPage': {'@id': page['@id']}}
+        crumbs = {'@type': 'BreadcrumbList', '@id': url + '#breadcrumbs',
+                  'itemListElement': [
+                      {'@type': 'ListItem', 'position': 1, 'name': 'Справочник', 'item': ORIGIN + '/library/'},
+                      {'@type': 'ListItem', 'position': 2, 'name': title, 'item': url}]}
+        page['breadcrumb'] = {'@id': crumbs['@id']}
+        page['mainEntity'] = {'@id': document['@id']}
+        graph.extend([document, crumbs])
+    data = json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False).replace('<', '\\u003c')
+    tags = [f'<title>{e(full_title)}</title>', f'<link rel="canonical" href="{e(url)}">']
+    tags += [f'<meta name="{key}" content="{e(value)}">' for key, value in meta.items()]
+    tags += [f'<meta property="{key}" content="{e(value)}">' for key, value in og.items()]
+    if indexable:
+        tags.append(f'<script type="application/ld+json">{data}</script>')
+    return '\n'.join(tags)
+
 def shell(title, desc, body, active='', path='/', toc='', article=None):
     edit = f'{REPO}/edit/codex/superset-guide/content/{article["file"]}' if article else REPO
     return f'''<!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{e(title)} · Superset по-русски</title><meta name="description" content="{e(desc)}">
-<link rel="canonical" href="{ORIGIN}{path}"><meta property="og:title" content="{e(title)} · Superset по-русски"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="{ORIGIN}{path}">
+{seo(title, desc, path, article)}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="alternate" type="application/atom+xml" title="Обновления справочника" href="/feed.xml"><script src="/app.js" defer></script>{METRIKA_SCRIPT}</head>
 <body>{METRIKA_NOSCRIPT}<a class="skip" href="#main">К содержанию</a>
 <header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span>Superset<small>по-русски</small></span></a><div class="top-caption">Практика для аналитиков</div><a class="top-news" href="/updates/">Что нового</a><button id="menu" aria-controls="sidebar" aria-expanded="false">Меню</button></header>
@@ -158,7 +205,7 @@ search = heading('Поиск','Найти в справочнике','Поиск
 write('search/index.html',shell('Поиск','Полнотекстовый поиск по русскому справочнику Superset.',search,'search','/search/'))
 write('404.html',shell('Страница не найдена','Страница не найдена.',heading('404','Страница не найдена','Проверьте адрес или найдите материал в справочнике.')+'<a class="button primary" href="/library/">Открыть справочник →</a>',path='/404.html'))
 write('search-index.json',json.dumps([{k:x[k] for k in ('title','description','url','status','group','raw')} for x in entries],ensure_ascii=False))
-urls=['/','/library/','/topics/','/experiments/','/updates/','/search/']+[x['url'] for x in entries]
+urls=['/','/library/','/topics/','/experiments/','/updates/']+[x['url'] for x in entries]
 latest_content_date = max(x['updated'] for x in entries)
 latest_feed_date = max(u['date'] for u in updates)
 page_dates = {x['url']:x['updated'] for x in entries}
