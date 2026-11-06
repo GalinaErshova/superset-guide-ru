@@ -20,6 +20,7 @@ python -m venv .venv
 .venv/Scripts/python -m pip install -r requirements.txt
 .venv/Scripts/python build.py
 .venv/Scripts/python validate.py
+.venv/Scripts/python test_updates.py
 # Linux/macOS: .venv/bin/python вместо .venv/Scripts/python
 node --check static/app.js
 python -m http.server 18963 --bind 127.0.0.1 --directory dist
