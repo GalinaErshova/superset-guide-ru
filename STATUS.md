@@ -43,6 +43,14 @@
 - Сборка, проверки метаданных всех страниц, JSON-LD, sitemap, ссылок и регрессионные проверки дат — PASS. Проверки Google Rich Results и Search Console не выполнялись.
 - SEO-исходники: 18f9d2d, публикация gh-pages: 1c1391f. GitHub Pages run 42237450334 завершился успешно. На публичной статье /guide/performance/ подтверждены JSON-LD и Метрика 114109969. CNAME корректен. Сертификат по повторной проверке ещё отсутствует; GitHub вновь отклонил https_enforced с «The certificate does not exist yet». Ревью nordik-claude запрошено отдельно.
 
+## Восстановление выпуска HTTPS — 06.11.2026
+
+- GitHub Pages health подтвердил is_valid=true, is_https_eligible=true, caa_error=null. CNAME и конечные A/AAAA ведут на GitHub Pages; CAA разрешает letsencrypt.org. Блокирующих ошибок DNS не обнаружено.
+- После первоначальной настройки Pages до смены A на CNAME заявка на сертификат отсутствовала. Причина зависания предположительно связана с первой DNS-проверкой; внутреннего журнала GitHub нет.
+- В 17:11 по Берлину выполнено рекомендованное GitHub снятие и немедленное восстановление того же custom domain через API. DNS не менялся. CNAME восстановлен, локальная gh-pages синхронизирована с автоматическими коммитами GitHub до 807be64.
+- Новый Pages run 42250032560 завершился успешно. Появился https_certificate.state=authorization_created; раньше объекта https_certificate не было. Выпуск перезапущен, но сертификат ещё не установлен и https_enforced=false.
+- Инструкция: https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https#troubleshooting-certificate-provisioning-certificate-not-yet-created-error
+
 ## Следующий шаг
 
 Проверить сертификат и включить HTTPS после выпуска. Проверить ответ nordik-claude. Стенд Superset подключать отдельной задачей после получения адреса и версии.
