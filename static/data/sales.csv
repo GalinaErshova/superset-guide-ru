@@ -1,0 +1,13 @@
+order_id,order_date,region,category,revenue,cost
+1001,2026-01-05,North,Software,10000,6000
+1002,2026-01-12,South,Service,12000,8000
+1003,2026-01-20,North,Service,8000,5000
+1004,2026-01-27,South,Software,14000,9000
+1005,2026-02-04,North,Software,16000,10000
+1006,2026-02-11,South,Service,9000,6000
+1007,2026-02-19,North,Service,11000,7000
+1008,2026-02-25,South,Software,15000,9000
+1009,2026-03-03,North,Software,18000,11000
+1010,2026-03-10,South,Service,13000,8000
+1011,2026-03-18,North,Service,10000,6000
+1012,2026-03-26,South,Software,20000,13000
